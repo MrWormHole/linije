@@ -11,11 +11,7 @@ onready var line: Node
 func _ready() -> void:
   draw_point = Vector2(-size/2, -size/2)
   line = get_node("line")
-  line.draw_start_point = draw_point
-  line.draw_end_point = line.draw_start_point + Vector2(size, size)
-  line.size = size
-  line.color = color
-  line.thickness = thickness
+  
 
 func _draw() -> void:
   draw_rect(Rect2(draw_point, Vector2(size, size)), color, false, thickness) # draw point of cell is moved to the upper left for the center of the node

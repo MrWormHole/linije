@@ -8,18 +8,55 @@ var draw_end_point: Vector2
 
 onready var cell: Node
 
+### THESE ARE FOR DEBUGGING PURPOSE ONLY
+var timer = 0
+var wait_time = 2
+var switch = false
+### THESE ARE FOR DEBUGGING PURPOSE ONLY
+
 func _ready() -> void:
 	cell = get_parent()
-	print(cell.transform.origin)
+	size = cell.size
+	color = cell.color
+	thickness = cell.thickness
+	draw_start_point = Vector2(-size/2, -size/2)
+	draw_end_point = draw_start_point + Vector2(size, size)	
 
 func _draw() -> void:
-	#if self.transform.origin.y < 50:
-	# do a mask here for drawing so that some lines doesn't get out of the cell, use cell's origin position 	
 	draw_line(draw_start_point, draw_end_point, color, thickness)
 
-func _process(delta: float) -> void:
-	self.rotation += PI * delta
 
-func relative_to_global_point(local_point: Vector2) -> Vector2:
-	# take the relative draw start point and get the global point, use cell's origin position
-	return Vector2(0, 0)
+func _process(delta: float) -> void:
+	timer+=delta
+	if timer>wait_time:
+		switch = true
+		timer = 0
+
+	if !switch:
+		return	
+
+	self.rotation += PI * delta
+	draw_start_point = draw_start_point.rotated(PI * delta)
+	draw_end_point = draw_end_point.rotated(PI * delta)
+
+	if relative_to_global_point(draw_start_point).y < cell.transform.origin.y - size / 2 || relative_to_global_point(draw_start_point).y > cell.transform.origin.y + size / 2:
+		draw_start_point.y = global_to_relative_point(cell.transform.origin).y
+	if relative_to_global_point(draw_start_point).x < cell.transform.origin.x - size / 2 || relative_to_global_point(draw_start_point).x > cell.transform.origin.x + size / 2:
+		draw_start_point.x = global_to_relative_point(cell.transform.origin).x
+
+	if relative_to_global_point(draw_end_point).y < cell.transform.origin.y - size / 2 || relative_to_global_point(draw_end_point).y > cell.transform.origin.y + size / 2:
+		draw_end_point.y = global_to_relative_point(cell.transform.origin).y
+	if relative_to_global_point(draw_end_point).x < cell.transform.origin.x - size / 2 || relative_to_global_point(draw_end_point).x > cell.transform.origin.x + size / 2:
+		draw_end_point.x = global_to_relative_point(cell.transform.origin).x
+
+	
+	update()
+	switch = false
+
+func relative_to_global_point(relative_point: Vector2) -> Vector2:
+	# take the relative  point and get the global point, use cell's origin position
+	return cell.transform.origin + relative_point
+
+func global_to_relative_point(global_point: Vector2) -> Vector2:
+	# take the global point and get the relative point, use cell's origin position
+	return global_point - cell.transform.origin
