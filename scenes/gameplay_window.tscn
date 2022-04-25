@@ -4,15 +4,9 @@
 
 [node name="gameplay_window" type="Node"]
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-expand = true
-
 [node name="board" type="Node2D" parent="."]
 script = ExtResource( 2 )
-row_count = 8
-col_count = 10
-x_start = 64
-y_start = 224
+row_count = 9
+col_count = 8
+x_start = 64.0
+y_start = 244.0
