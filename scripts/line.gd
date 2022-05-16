@@ -14,6 +14,10 @@ var wait_time = 2
 var switch = false
 ### THESE ARE FOR DEBUGGING PURPOSE ONLY
 
+func _on_cell_input_event(viewport, event, shape_idx):
+	if (event is InputEventMouseButton && event.pressed):
+		print("Clicked")
+
 func _ready() -> void:
 	cell = get_parent()
 	size = cell.size
