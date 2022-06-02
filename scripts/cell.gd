@@ -14,7 +14,7 @@ func _ready() -> void:
   
 
 func _draw() -> void:
-  draw_rect(Rect2(draw_point, Vector2(size, size)), color, false, thickness) # draw point of cell is moved to the upper left for the center of the node
+  draw_rect(Rect2(draw_point, Vector2(size, size)), color, false, thickness, true) # draw point of cell is moved to the upper left for the center of the node
 
 func _to_string() -> String:
   return "x1: {0}, y1: {1}, size: {2}".format([self.x, self.y, size])
