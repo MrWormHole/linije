@@ -77,8 +77,8 @@ func spawn_indicators(indicators: Array) -> void:
 			indicators[i][j] = indicator
 			add_child(indicator)
 
-func calculate_offset(size: float) -> float:
-	var offset: float = (MAX_WIDTH - 2 * x_start - size * col_count) / col_count
-	offset += size
+func calculate_offset(block_size: float) -> float:
+	var offset: float = (MAX_WIDTH - 2 * x_start - block_size * col_count) / col_count
+	offset += block_size
 	return offset			
 	
