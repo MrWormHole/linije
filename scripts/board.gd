@@ -66,7 +66,7 @@ func spawn_indicators(indicators: Array) -> void:
 			continue
 		for j in range(indicators[i].size()):
 			if j == 0 || j == indicators[i].size() - 1:
-				continue
+					continue
 			var indicator: Node = indicator_resource.instance()
 			indicator.color = all_colors[2]
 			indicator.size = INDICATOR_SIZE # ? SHOULD WE CHANGE THIS ACTUALLY ?
