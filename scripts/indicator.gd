@@ -4,6 +4,8 @@ var size: float
 var color: Color
 var draw_point: Vector2
 var current_state: int
+var current_value: int
+var unlock_value: int
 
 enum State { 
   UNKNOWN,
@@ -16,6 +18,8 @@ onready var label: Node
 func _ready() -> void:
 	draw_point = Vector2(-size/2, -size/2)
 	current_state = State.UNKNOWN
+	current_value = 0
+	unlock_value = 0
 	label = get_node("label")
 	label.rect_position += Vector2(-size/2, -size/2)
 
@@ -31,6 +35,9 @@ func draw_circle_arc(center: Vector2, radius: float, angle_from: float, angle_to
 		var angle_point = deg2rad(angle_from + i * (angle_to - angle_from) / point_count - 90)
 		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
 	draw_polygon(points_arc, colors, PoolVector2Array(), null, null, true)
+
+func is_unlocked() -> bool:
+	return current_value == unlock_value
 
 func _to_string() -> String:
 	return "x1: {0}, y1: {1}, size: {2}".format([self.x, self.y, size])

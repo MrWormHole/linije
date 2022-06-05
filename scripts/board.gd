@@ -57,6 +57,7 @@ func spawn_cells(cells: Array) -> void:
 			var offset: float = calculate_offset(CELL_SIZE)
 			cell.transform.origin.x = x_start + (j * offset) + (CELL_SIZE / 2) # origin is moved to the center of the node
 			cell.transform.origin.y = y_start + (i * offset) + (CELL_SIZE / 2) # origin is moved to the center of the node
+			cell.id = "{0}|{1}".format([i, j])
 			all_cells[i][j] = cell
 			add_child(cell)
 
@@ -82,3 +83,12 @@ func calculate_offset(block_size: float) -> float:
 	offset += block_size
 	return offset			
 	
+func is_indicator_unlocked(i: int, j: int) -> bool:
+	var indicator = all_indicators[i][j]
+	if indicator == null:
+		return false
+	return indicator.is_unlocked()
+
+func _on_cell_touch_occurred(cell_id: String) -> void:
+	print("here the cell touch occured on ", cell_id)
+	# this is where I can calculate the neighbour indicators values and set their current value then check against lock value
