@@ -28,7 +28,7 @@ var can_be_pressed: bool = true
 
 # _on_cell_input_event is a function that gets triggered every time a user clicks on the cell's area2D via touch/click
 func _on_cell_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventScreenTouch && event.is_pressed() && !event.is_echo():
+	if event is InputEventScreenTouch && event.is_pressed():
 
 		if cell.current_state == cell.State.EMPTY:
 			cell.change_state()
