@@ -22,6 +22,7 @@ func _ready() -> void:
 	unlock_value = 0
 	label = get_node("label")
 	label.rect_position += Vector2(-size/2, -size/2)
+	label.text = to_roman_value()
 
 func _draw() -> void:
 	draw_circle_arc(draw_point, size/2, 0, 360, color)
@@ -38,6 +39,20 @@ func draw_circle_arc(center: Vector2, radius: float, angle_from: float, angle_to
 
 func is_unlocked() -> bool:
 	return current_value == unlock_value
+
+func to_roman_value() -> String:
+	match current_value:
+		0:
+			return "N"
+		1:
+			return "I"
+		2:
+			return "II"
+		3:
+			return "III"
+		4:
+			return "IV"
+	return ""
 
 func _to_string() -> String:
 	return "x1: {0}, y1: {1}, size: {2}".format([self.x, self.y, size])

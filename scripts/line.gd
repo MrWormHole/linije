@@ -24,23 +24,28 @@ func _draw() -> void:
 	if cell.current_state != cell.State.EMPTY:
 		draw_line(draw_start_point, draw_end_point, color, thickness)
 
+var can_be_pressed: bool = true
+
 # _on_cell_input_event is a function that gets triggered every time a user clicks on the cell's area2D via touch/click
-func _on_cell_input_event(_viewport, event, _shape_idx) -> void:
-	if event is InputEventScreenTouch && event.is_pressed():
+func _on_cell_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventScreenTouch && event.is_pressed() && !event.is_echo():
+
 		if cell.current_state == cell.State.EMPTY:
 			cell.change_state()
 			update()
 			return
-		else:
-			cell.change_state()
 		
-		if int(rad2deg(self.rotation)) % 90 != 0:
+		var roundedRotation: int = int(rad2deg(self.rotation))
+		if roundedRotation % 90 == 89:
+			roundedRotation += 1
+		if roundedRotation % 90 != 0:
 			return
 		
 		var current_rotation: float = self.rotation
 		var next_rotation: float = self.rotation + deg2rad(90)
 		tween.interpolate_property(self, "rotation", current_rotation, next_rotation, interpolation_seconds, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 		tween.start()
+		cell.change_state()
 
 func relative_to_global_point(relative_point: Vector2) -> Vector2:
 	# take the relative  point and get the global point, use cell's origin position
