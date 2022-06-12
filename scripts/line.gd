@@ -26,7 +26,7 @@ func _draw() -> void:
 
 # _on_cell_input_event is a function that gets triggered every time a user clicks on the cell's area2D via touch/click
 func _on_cell_input_event(_viewport, event, _shape_idx) -> void:
-	if (event is InputEventMouseButton && event.is_pressed()):
+	if event is InputEventScreenTouch && event.is_pressed():
 		if cell.current_state == cell.State.EMPTY:
 			cell.change_state()
 			update()
