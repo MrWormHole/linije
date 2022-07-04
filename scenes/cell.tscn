@@ -19,3 +19,4 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [connection signal="input_event" from="." to="line" method="_on_cell_input_event"]
+[connection signal="tween_completed" from="line/tween" to="line" method="_on_tween_completed"]
